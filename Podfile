@@ -6,6 +6,7 @@ target 'mapbookmarks' do
 pod 'AFNetworking'
 pod 'WYPopoverController'
 pod 'SAMHUDView'
+pod 'WYPopoverController'
 
 end
 

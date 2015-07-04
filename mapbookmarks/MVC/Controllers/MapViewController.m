@@ -11,12 +11,19 @@
 #import "CoreDataManager.h"
 #import "CoreDataStorage.h"
 #import "Bookmark.h"
+#import "BookmarkDetailViewController.h"
+#import "PopoverTableViewController.h"
+#import "WYStoryboardPopoverSegue.h"
 
-@interface MapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@protocol BookmarksPopoverDelegate;
+
+@interface MapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, WYPopoverControllerDelegate, BookmarksPopoverDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSManagedObjectContext* managedObjectContext;
+@property (strong, nonatomic) Bookmark *selectedBookmark;
+@property (strong, nonatomic) WYPopoverController *bookmarksPopover;
 
 @end
 
@@ -24,7 +31,7 @@
 
 #pragma mark - Accessors
 
-- (NSManagedObjectContext*) managedObjectContext {
+- (NSManagedObjectContext*)managedObjectContext {
     if (!_managedObjectContext) {
         _managedObjectContext = [[CoreDataManager sharedManager] managedObjectContext];
     }
@@ -69,19 +76,46 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
         self.mapView.showsUserLocation = YES;
+    } else {
+        self.mapView.showsUserLocation = NO;
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
+#pragma mark - MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)aUserLocation {
     MKCoordinateSpan span = MKCoordinateSpanMake(.005f, .005f);
     CLLocationCoordinate2D location = self.mapView.userLocation.location.coordinate;
     MKCoordinateRegion region = MKCoordinateRegionMake(location, span);
-
+    
     [self.mapView setRegion:region animated:YES];
 }
 
-#pragma mark - MKMapViewDelegate
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    static NSString *reuseIdentifier = @"annotationReuseIdentifier";
+    
+    if([annotation isKindOfClass:[MKUserLocation class]]) {
+        return [mapView viewForAnnotation:annotation];
+    }
+    
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
+    
+    if (!annotationView) {
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+    }
+    
+    annotationView.canShowCallout = YES;
+    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    if([view.annotation isKindOfClass:[Bookmark class]]) {
+        self.selectedBookmark = view.annotation;
+        [self performSegueWithIdentifier:@"segueToBookmarkDetailViewController" sender:self];
+    }
+}
 
 #pragma mark - UIGestureRecognizer
 
@@ -93,7 +127,15 @@
     
     CGPoint touchPoint = [recognized locationInView:self.mapView];
     CLLocationCoordinate2D touchCoordinates = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    [[CoreDataStorage sharedStorage] createBookmarkNamed:@"Unnamed" withLocation:touchCoordinates];
+    Bookmark *bookmark = [[CoreDataStorage sharedStorage] createBookmarkNamed:@"Unnamed" withLocation:touchCoordinates];
+    
+    [self.mapView selectAnnotation:bookmark animated:YES];
+}
+
+#pragma mark - Actions
+
+- (IBAction)barButtonRouteAction:(UIBarButtonItem *)sender {
+    NSLog(@"barButtonRouteAction:");
 }
 
 #pragma mark - NSManagedObjectContext
@@ -108,6 +150,51 @@
     
     if (deletedObjects.count) {
         [self.mapView removeAnnotations:[deletedObjects allObjects]];
+    }
+}
+
+#pragma mark - Setters
+
+-(void)setMapMode:(MapMode)mapMode {
+    _mapMode = mapMode;
+}
+
+#pragma mark - BookmarksPopoverDelegate
+
+- (void)popoverTableViewController:(PopoverTableViewController *)popover didSelectBookmark:(Bookmark *)bookmark {
+    NSLog(@"draw route");
+    [self.bookmarksPopover dismissPopoverAnimated:YES];
+}
+
+
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"segueToBookmarkDetailViewController"]) {
+        BookmarkDetailViewController *controller = segue.destinationViewController;
+        controller.bookmark = self.selectedBookmark;
+    } else if ([segue.identifier isEqualToString:@"segueToPopoverTableViewController"]) {
+        PopoverTableViewController *destinationViewController = segue.destinationViewController;
+        destinationViewController.delegate = self;
+        destinationViewController.preferredContentSize = CGSizeMake(self.view.bounds.size.width, 44.f * 6);
+        
+        WYStoryboardPopoverSegue *popoverSegue = (WYStoryboardPopoverSegue *)segue;
+        
+        self.bookmarksPopover = [popoverSegue popoverControllerWithSender:sender
+                                                 permittedArrowDirections:WYPopoverArrowDirectionAny
+                                                                 animated:YES];
+        self.bookmarksPopover.delegate = self;
+    }
+}
+
+- (IBAction)unwindToMapViewController:(UIStoryboardSegue *)segue {
+    if ([segue.identifier isEqualToString:@"segueToMapViewControllerCenter"]) {
+        BookmarkDetailViewController *controller = segue.sourceViewController;
+        self.mapView.centerCoordinate = controller.bookmark.location.coordinate;
+        [self.mapView selectAnnotation:controller.bookmark animated:YES];
+    } else if ([segue.identifier isEqualToString:@"segueToMapViewControllerRoute"]) {
+        NSLog(@"routing mode");
+        [self setMapMode:MapModeRouting];
     }
 }
 

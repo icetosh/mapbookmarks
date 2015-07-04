@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Mykola Prokopiev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseTableViewController.h"
 
-@interface BookmarksTableViewController : UITableViewController
+@interface BookmarksTableViewController : BaseTableViewController
 
 @end

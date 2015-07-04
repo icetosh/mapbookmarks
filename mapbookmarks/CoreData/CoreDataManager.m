@@ -148,12 +148,14 @@
 
 - (void)deleteManagedObject:(NSManagedObject*)object {
     [self.managedObjectContext deleteObject:object];
+    [self saveContext];
 }
 
 - (void)deleteCollection:(id<NSFastEnumeration>)collection {
     for (NSManagedObject *managedObject in collection) {
         [self.managedObjectContext deleteObject:managedObject];
     }
+    [self saveContext];
 }
 
 #pragma mark - Creation

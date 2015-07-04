@@ -15,7 +15,7 @@
 
 + (CoreDataStorage*)sharedStorage;
 
-- (void)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location;
+- (Bookmark *)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location;
 
 - (NSArray *)getAllBookmarks;
 

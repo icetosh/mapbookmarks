@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		332DAAE12721BB2BD8F00FF4 /* libPods-mapbookmarks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49980E936F4BA06758B036E5 /* libPods-mapbookmarks.a */; };
+		38654C4A1B48711C0055B038 /* PopoverTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38654C491B48711C0055B038 /* PopoverTableViewController.m */; };
+		38654C4E1B48714F0055B038 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38654C4D1B48714F0055B038 /* BaseTableViewController.m */; };
 		3882BF251B47E94900C188B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF241B47E94900C188B2 /* main.m */; };
 		3882BF281B47E94900C188B2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF271B47E94900C188B2 /* AppDelegate.m */; };
 		3882BF2E1B47E94900C188B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3882BF2C1B47E94900C188B2 /* Main.storyboard */; };
@@ -38,6 +40,10 @@
 
 /* Begin PBXFileReference section */
 		2BF81EF5B4339E5426E0387F /* Pods-mapbookmarks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapbookmarks.release.xcconfig"; path = "Pods/Target Support Files/Pods-mapbookmarks/Pods-mapbookmarks.release.xcconfig"; sourceTree = "<group>"; };
+		38654C481B48711C0055B038 /* PopoverTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopoverTableViewController.h; path = MVC/Controllers/PopoverTableViewController.h; sourceTree = "<group>"; };
+		38654C491B48711C0055B038 /* PopoverTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopoverTableViewController.m; path = MVC/Controllers/PopoverTableViewController.m; sourceTree = "<group>"; };
+		38654C4C1B48714F0055B038 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewController.h; path = MVC/Controllers/BaseTableViewController.h; sourceTree = "<group>"; };
+		38654C4D1B48714F0055B038 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewController.m; path = MVC/Controllers/BaseTableViewController.m; sourceTree = "<group>"; };
 		3882BF1F1B47E94900C188B2 /* mapbookmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mapbookmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3882BF231B47E94900C188B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3882BF241B47E94900C188B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38654C4B1B4871390055B038 /* BaseTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				38654C4C1B48714F0055B038 /* BaseTableViewController.h */,
+				38654C4D1B48714F0055B038 /* BaseTableViewController.m */,
+			);
+			name = BaseTableViewController;
+			sourceTree = "<group>";
+		};
 		3882BF161B47E94900C188B2 = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +224,9 @@
 				3882BF5D1B47F30500C188B2 /* BookmarksTableViewController.m */,
 				3882BF621B47F34D00C188B2 /* BookmarkDetailViewController.h */,
 				3882BF631B47F34D00C188B2 /* BookmarkDetailViewController.m */,
+				38654C481B48711C0055B038 /* PopoverTableViewController.h */,
+				38654C491B48711C0055B038 /* PopoverTableViewController.m */,
+				38654C4B1B4871390055B038 /* BaseTableViewController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -375,7 +393,9 @@
 				3882BF6D1B47F8D100C188B2 /* Constants.m in Sources */,
 				3882BF6A1B47F4EF00C188B2 /* CoreDataStorage.m in Sources */,
 				3882BF5E1B47F30500C188B2 /* BookmarksTableViewController.m in Sources */,
+				38654C4A1B48711C0055B038 /* PopoverTableViewController.m in Sources */,
 				3882BF4F1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld in Sources */,
+				38654C4E1B48714F0055B038 /* BaseTableViewController.m in Sources */,
 				3882BF531B47F10300C188B2 /* Bookmark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

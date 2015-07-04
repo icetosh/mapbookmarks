@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Bookmark;
+
 @interface BookmarkDetailViewController : UIViewController
+
+@property (strong, nonatomic) Bookmark *bookmark;
 
 @end

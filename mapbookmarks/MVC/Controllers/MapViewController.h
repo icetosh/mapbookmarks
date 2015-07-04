@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+typedef NS_ENUM(NSInteger, MapMode) {
+    MapModeNormal,
+    MapModeRouting
+};
+
 @interface MapViewController : UIViewController
+
+@property (assign, nonatomic) MapMode mapMode;
 
 @end

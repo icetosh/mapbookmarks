@@ -49,7 +49,7 @@
 
 #pragma mark Bookmark
 
-- (void)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location {
+- (Bookmark *)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location {
     
     CLLocation *bookmarkLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
 
@@ -57,7 +57,9 @@
     bookmark.name = name;
     bookmark.location = bookmarkLocation;
     
-    [self.coreDataManager saveContext];    
+    [self.coreDataManager saveContext];
+    
+    return bookmark;
 }
 
 - (NSArray *)getAllBookmarks {
