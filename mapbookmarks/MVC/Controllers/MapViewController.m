@@ -87,15 +87,13 @@
 
 - (IBAction)longTap:(UILongPressGestureRecognizer *)recognized {
     
-    if (recognized.state != UIGestureRecognizerStateEnded) {
+    if (recognized.state != UIGestureRecognizerStateBegan) {
         return;
     }
-
+    
     CGPoint touchPoint = [recognized locationInView:self.mapView];
     CLLocationCoordinate2D touchCoordinates = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
     [[CoreDataStorage sharedStorage] createBookmarkNamed:@"Unnamed" withLocation:touchCoordinates];
-    
-    return;
 }
 
 #pragma mark - NSManagedObjectContext
