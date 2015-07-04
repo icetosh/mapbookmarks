@@ -14,6 +14,15 @@
 		3882BF301B47E94900C188B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3882BF2F1B47E94900C188B2 /* Images.xcassets */; };
 		3882BF331B47E94900C188B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3882BF311B47E94900C188B2 /* LaunchScreen.xib */; };
 		3882BF3F1B47E94900C188B2 /* mapbookmarksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF3E1B47E94900C188B2 /* mapbookmarksTests.m */; };
+		3882BF4A1B47ECE800C188B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3882BF491B47ECE800C188B2 /* CoreData.framework */; };
+		3882BF4C1B47ECEF00C188B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3882BF4B1B47ECEF00C188B2 /* MapKit.framework */; };
+		3882BF4F1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF4D1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld */; };
+		3882BF531B47F10300C188B2 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF521B47F10300C188B2 /* Bookmark.m */; };
+		3882BF5B1B47F2DE00C188B2 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF5A1B47F2DE00C188B2 /* MapViewController.m */; };
+		3882BF5E1B47F30500C188B2 /* BookmarksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF5D1B47F30500C188B2 /* BookmarksTableViewController.m */; };
+		3882BF641B47F34D00C188B2 /* BookmarkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF631B47F34D00C188B2 /* BookmarkDetailViewController.m */; };
+		3882BF671B47F3A200C188B2 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF661B47F3A200C188B2 /* CoreDataManager.m */; };
+		3882BF6A1B47F4EF00C188B2 /* CoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF691B47F4EF00C188B2 /* CoreDataStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +48,21 @@
 		3882BF381B47E94900C188B2 /* mapbookmarksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mapbookmarksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3882BF3D1B47E94900C188B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3882BF3E1B47E94900C188B2 /* mapbookmarksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mapbookmarksTests.m; sourceTree = "<group>"; };
+		3882BF491B47ECE800C188B2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3882BF4B1B47ECEF00C188B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3882BF4E1B47ED3500C188B2 /* MapBookmarks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MapBookmarks.xcdatamodel; sourceTree = "<group>"; };
+		3882BF511B47F10300C188B2 /* Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bookmark.h; path = CoreData/NSManagedObjects/Bookmark.h; sourceTree = "<group>"; };
+		3882BF521B47F10300C188B2 /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bookmark.m; path = CoreData/NSManagedObjects/Bookmark.m; sourceTree = "<group>"; };
+		3882BF591B47F2DE00C188B2 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = MVC/Controllers/MapViewController.h; sourceTree = "<group>"; };
+		3882BF5A1B47F2DE00C188B2 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = MVC/Controllers/MapViewController.m; sourceTree = "<group>"; };
+		3882BF5C1B47F30500C188B2 /* BookmarksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarksTableViewController.h; path = MVC/Controllers/BookmarksTableViewController.h; sourceTree = "<group>"; };
+		3882BF5D1B47F30500C188B2 /* BookmarksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarksTableViewController.m; path = MVC/Controllers/BookmarksTableViewController.m; sourceTree = "<group>"; };
+		3882BF621B47F34D00C188B2 /* BookmarkDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkDetailViewController.h; path = MVC/Controllers/BookmarkDetailViewController.h; sourceTree = "<group>"; };
+		3882BF631B47F34D00C188B2 /* BookmarkDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BookmarkDetailViewController.m; path = MVC/Controllers/BookmarkDetailViewController.m; sourceTree = "<group>"; };
+		3882BF651B47F3A200C188B2 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = CoreData/CoreDataManager.h; sourceTree = "<group>"; };
+		3882BF661B47F3A200C188B2 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = CoreData/CoreDataManager.m; sourceTree = "<group>"; };
+		3882BF681B47F4EF00C188B2 /* CoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataStorage.h; path = CoreData/CoreDataStorage.h; sourceTree = "<group>"; };
+		3882BF691B47F4EF00C188B2 /* CoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataStorage.m; path = CoreData/CoreDataStorage.m; sourceTree = "<group>"; };
 		49980E936F4BA06758B036E5 /* libPods-mapbookmarks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mapbookmarks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		522D48437AD66FD8D942DA4B /* Pods-mapbookmarks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapbookmarks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mapbookmarks/Pods-mapbookmarks.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3882BF4C1B47ECEF00C188B2 /* MapKit.framework in Frameworks */,
+				3882BF4A1B47ECE800C188B2 /* CoreData.framework in Frameworks */,
 				332DAAE12721BB2BD8F00FF4 /* libPods-mapbookmarks.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +116,8 @@
 				3882BF2C1B47E94900C188B2 /* Main.storyboard */,
 				3882BF2F1B47E94900C188B2 /* Images.xcassets */,
 				3882BF311B47E94900C188B2 /* LaunchScreen.xib */,
+				3882BF541B47F28700C188B2 /* MVC */,
+				3882BF481B47EC7800C188B2 /* CoreData */,
 				3882BF221B47E94900C188B2 /* Supporting Files */,
 			);
 			path = mapbookmarks;
@@ -121,9 +149,70 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3882BF481B47EC7800C188B2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3882BF4D1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld */,
+				3882BF501B47ED6500C188B2 /* NSManagedObjects */,
+				3882BF651B47F3A200C188B2 /* CoreDataManager.h */,
+				3882BF661B47F3A200C188B2 /* CoreDataManager.m */,
+				3882BF681B47F4EF00C188B2 /* CoreDataStorage.h */,
+				3882BF691B47F4EF00C188B2 /* CoreDataStorage.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		3882BF501B47ED6500C188B2 /* NSManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				3882BF511B47F10300C188B2 /* Bookmark.h */,
+				3882BF521B47F10300C188B2 /* Bookmark.m */,
+			);
+			name = NSManagedObjects;
+			sourceTree = "<group>";
+		};
+		3882BF541B47F28700C188B2 /* MVC */ = {
+			isa = PBXGroup;
+			children = (
+				3882BF551B47F28E00C188B2 /* Models */,
+				3882BF571B47F29C00C188B2 /* Views */,
+				3882BF581B47F2A200C188B2 /* Controllers */,
+			);
+			name = MVC;
+			sourceTree = "<group>";
+		};
+		3882BF551B47F28E00C188B2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3882BF571B47F29C00C188B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3882BF581B47F2A200C188B2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3882BF591B47F2DE00C188B2 /* MapViewController.h */,
+				3882BF5A1B47F2DE00C188B2 /* MapViewController.m */,
+				3882BF5C1B47F30500C188B2 /* BookmarksTableViewController.h */,
+				3882BF5D1B47F30500C188B2 /* BookmarksTableViewController.m */,
+				3882BF621B47F34D00C188B2 /* BookmarkDetailViewController.h */,
+				3882BF631B47F34D00C188B2 /* BookmarkDetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		473B9029F781F96F5218302B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3882BF4B1B47ECEF00C188B2 /* MapKit.framework */,
+				3882BF491B47ECE800C188B2 /* CoreData.framework */,
 				49980E936F4BA06758B036E5 /* libPods-mapbookmarks.a */,
 			);
 			name = Frameworks;
@@ -275,6 +364,13 @@
 			files = (
 				3882BF281B47E94900C188B2 /* AppDelegate.m in Sources */,
 				3882BF251B47E94900C188B2 /* main.m in Sources */,
+				3882BF671B47F3A200C188B2 /* CoreDataManager.m in Sources */,
+				3882BF5B1B47F2DE00C188B2 /* MapViewController.m in Sources */,
+				3882BF641B47F34D00C188B2 /* BookmarkDetailViewController.m in Sources */,
+				3882BF6A1B47F4EF00C188B2 /* CoreDataStorage.m in Sources */,
+				3882BF5E1B47F30500C188B2 /* BookmarksTableViewController.m in Sources */,
+				3882BF4F1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld in Sources */,
+				3882BF531B47F10300C188B2 /* Bookmark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +579,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3882BF4D1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3882BF4E1B47ED3500C188B2 /* MapBookmarks.xcdatamodel */,
+			);
+			currentVersion = 3882BF4E1B47ED3500C188B2 /* MapBookmarks.xcdatamodel */;
+			name = MapBookmarks.xcdatamodeld;
+			path = CoreData/MapBookmarks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3882BF171B47E94900C188B2 /* Project object */;
 }
