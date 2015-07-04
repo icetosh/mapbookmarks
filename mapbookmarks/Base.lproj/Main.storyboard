@@ -60,7 +60,6 @@
                     <navigationItem key="navigationItem" id="65b-d8-Llp">
                         <barButtonItem key="leftBarButtonItem" title="Route" id="g05-Xh-Fd7">
                             <connections>
-                                <action selector="barButtonRouteAction:" destination="vXZ-lx-hvc" id="qaQ-KA-S7k"/>
                                 <segue destination="ji2-zc-pg0" kind="custom" identifier="segueToPopoverTableViewController" customClass="WYStoryboardPopoverSegue" id="GFh-fm-hHx"/>
                             </connections>
                         </barButtonItem>
@@ -71,6 +70,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="barButtonRoute" destination="g05-Xh-Fd7" id="o9b-AC-9el"/>
                         <outlet property="mapView" destination="zOI-ea-Ie6" id="BWV-gO-rwS"/>
                         <segue destination="nz0-r0-wXZ" kind="push" identifier="segueToBookmarkDetailViewController" id="ull-aB-OVV"/>
                     </connections>

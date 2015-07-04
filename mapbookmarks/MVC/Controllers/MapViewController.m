@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSManagedObjectContext* managedObjectContext;
 @property (strong, nonatomic) Bookmark *selectedBookmark;
 @property (strong, nonatomic) WYPopoverController *bookmarksPopover;
+@property (strong, nonatomic) MKDirections *currentRouteDirections;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *barButtonRoute;
 
 @end
 
@@ -43,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getBookmarks];
+    [self addBookmarksAnnotations];
     
     [self subscribeToNotifications];
     
@@ -54,7 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataChanges:) name:NSManagedObjectContextObjectsDidChangeNotification object:_managedObjectContext];
 }
 
-- (void)getBookmarks {
+- (void)addBookmarksAnnotations {
     [self.mapView addAnnotations:[[CoreDataStorage sharedStorage] getAllBookmarks]];
 }
 
@@ -82,6 +84,13 @@
 }
 
 #pragma mark - MKMapViewDelegate
+
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    MKPolylineRenderer  *routeLineRenderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    routeLineRenderer.strokeColor = [UIColor blueColor];
+    routeLineRenderer.lineWidth = 5.f;
+    return routeLineRenderer;
+}
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)aUserLocation {
     MKCoordinateSpan span = MKCoordinateSpanMake(.005f, .005f);
@@ -121,6 +130,10 @@
 
 - (IBAction)longTap:(UILongPressGestureRecognizer *)recognized {
     
+    if (self.mapMode == MapModeRouting) {
+        self.mapMode = MapModeNormal;
+    }
+    
     if (recognized.state != UIGestureRecognizerStateBegan) {
         return;
     }
@@ -130,12 +143,6 @@
     Bookmark *bookmark = [[CoreDataStorage sharedStorage] createBookmarkNamed:@"Unnamed" withLocation:touchCoordinates];
     
     [self.mapView selectAnnotation:bookmark animated:YES];
-}
-
-#pragma mark - Actions
-
-- (IBAction)barButtonRouteAction:(UIBarButtonItem *)sender {
-    NSLog(@"barButtonRouteAction:");
 }
 
 #pragma mark - NSManagedObjectContext
@@ -156,16 +163,66 @@
 #pragma mark - Setters
 
 -(void)setMapMode:(MapMode)mapMode {
+    switch (mapMode) {
+        case MapModeNormal:
+            [self.mapView removeOverlays:self.mapView.overlays];
+            [self.mapView removeAnnotations:self.mapView.annotations];
+            [self addBookmarksAnnotations];
+            [self.barButtonRoute setTitle:@"Route"];
+            break;
+            
+        case MapModeRouting:
+            [self.barButtonRoute setTitle:@"Clear route"];
+            break;
+            
+        default:
+            break;
+    }
+    
     _mapMode = mapMode;
 }
 
 #pragma mark - BookmarksPopoverDelegate
 
 - (void)popoverTableViewController:(PopoverTableViewController *)popover didSelectBookmark:(Bookmark *)bookmark {
-    NSLog(@"draw route");
     [self.bookmarksPopover dismissPopoverAnimated:YES];
+    [self getRouteToBookmark:bookmark];
 }
 
+#pragma mark - Routes
+
+- (void)getRouteToBookmark:(Bookmark *)bookmark {
+    MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:bookmark.coordinate addressDictionary:nil];
+    
+    [directionsRequest setSource:[MKMapItem mapItemForCurrentLocation]];
+    [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:placemark]];
+    directionsRequest.transportType = MKDirectionsTransportTypeAutomobile;
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        if (!error) {
+            [self.mapView removeAnnotations:self.mapView.annotations];
+            [self.mapView addAnnotation:bookmark];
+            [self drawRoute:response];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Unable to calculate route :(" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay :(", nil];
+            [alertView show];
+        }
+    }];
+}
+
+-(void)drawRoute:(MKDirectionsResponse *)response {
+    MKMapRect totalRect = MKMapRectNull;
+    for (MKRoute *route in response.routes) {
+        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        
+        MKPolygon *polygon = [MKPolygon polygonWithPoints:route.polyline.points count:route.polyline.pointCount];
+        MKMapRect routeRect = [polygon boundingMapRect];
+        totalRect = MKMapRectUnion(totalRect, routeRect);
+    }
+    [self.mapView setVisibleMapRect:totalRect edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
+    self.mapMode = MapModeRouting;
+}
 
 #pragma mark - Segue
 
@@ -187,14 +244,24 @@
     }
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"segueToPopoverTableViewController"] && self.mapMode == MapModeRouting) {
+        self.mapMode = MapModeNormal;
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (IBAction)unwindToMapViewController:(UIStoryboardSegue *)segue {
     if ([segue.identifier isEqualToString:@"segueToMapViewControllerCenter"]) {
         BookmarkDetailViewController *controller = segue.sourceViewController;
         self.mapView.centerCoordinate = controller.bookmark.location.coordinate;
         [self.mapView selectAnnotation:controller.bookmark animated:YES];
     } else if ([segue.identifier isEqualToString:@"segueToMapViewControllerRoute"]) {
-        NSLog(@"routing mode");
-        [self setMapMode:MapModeRouting];
+        BookmarkDetailViewController *controller = segue.sourceViewController;
+        [self.mapView removeOverlays:self.mapView.overlays];
+        [self getRouteToBookmark:controller.bookmark];
     }
 }
 
