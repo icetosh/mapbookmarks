@@ -106,6 +106,13 @@
 			name = BaseTableViewController;
 			sourceTree = "<group>";
 		};
+		38654C4F1B48840F0055B038 /* FoursquareAPI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FoursquareAPI;
+			sourceTree = "<group>";
+		};
 		3882BF161B47E94900C188B2 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +140,7 @@
 				3882BF271B47E94900C188B2 /* AppDelegate.m */,
 				3882BF6B1B47F8D100C188B2 /* Constants.h */,
 				3882BF6C1B47F8D100C188B2 /* Constants.m */,
+				38654C4F1B48840F0055B038 /* FoursquareAPI */,
 				3882BF2C1B47E94900C188B2 /* Main.storyboard */,
 				3882BF2F1B47E94900C188B2 /* Images.xcassets */,
 				3882BF311B47E94900C188B2 /* LaunchScreen.xib */,

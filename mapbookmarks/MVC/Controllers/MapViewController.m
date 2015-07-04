@@ -14,6 +14,7 @@
 #import "BookmarkDetailViewController.h"
 #import "PopoverTableViewController.h"
 #import "WYStoryboardPopoverSegue.h"
+#import <SAMHUDView/SAMHUDView.h>
 
 @protocol BookmarksPopoverDelegate;
 
@@ -199,12 +200,18 @@
     [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:placemark]];
     directionsRequest.transportType = MKDirectionsTransportTypeAutomobile;
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+    
+    SAMHUDView *hudView = [[SAMHUDView alloc] initWithTitle:@"Calculating directions..."];
+    [hudView show];
+    
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         if (!error) {
             [self.mapView removeAnnotations:self.mapView.annotations];
             [self.mapView addAnnotation:bookmark];
             [self drawRoute:response];
+            [hudView dismiss];
         } else {
+            [hudView dismiss];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Unable to calculate route :(" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay :(", nil];
             [alertView show];
         }
