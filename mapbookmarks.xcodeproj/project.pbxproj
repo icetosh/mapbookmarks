@@ -23,6 +23,7 @@
 		3882BF641B47F34D00C188B2 /* BookmarkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF631B47F34D00C188B2 /* BookmarkDetailViewController.m */; };
 		3882BF671B47F3A200C188B2 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF661B47F3A200C188B2 /* CoreDataManager.m */; };
 		3882BF6A1B47F4EF00C188B2 /* CoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF691B47F4EF00C188B2 /* CoreDataStorage.m */; };
+		3882BF6D1B47F8D100C188B2 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3882BF6C1B47F8D100C188B2 /* Constants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		3882BF661B47F3A200C188B2 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = CoreData/CoreDataManager.m; sourceTree = "<group>"; };
 		3882BF681B47F4EF00C188B2 /* CoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataStorage.h; path = CoreData/CoreDataStorage.h; sourceTree = "<group>"; };
 		3882BF691B47F4EF00C188B2 /* CoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataStorage.m; path = CoreData/CoreDataStorage.m; sourceTree = "<group>"; };
+		3882BF6B1B47F8D100C188B2 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		3882BF6C1B47F8D100C188B2 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		49980E936F4BA06758B036E5 /* libPods-mapbookmarks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mapbookmarks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		522D48437AD66FD8D942DA4B /* Pods-mapbookmarks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapbookmarks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mapbookmarks/Pods-mapbookmarks.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +116,8 @@
 			children = (
 				3882BF261B47E94900C188B2 /* AppDelegate.h */,
 				3882BF271B47E94900C188B2 /* AppDelegate.m */,
+				3882BF6B1B47F8D100C188B2 /* Constants.h */,
+				3882BF6C1B47F8D100C188B2 /* Constants.m */,
 				3882BF2C1B47E94900C188B2 /* Main.storyboard */,
 				3882BF2F1B47E94900C188B2 /* Images.xcassets */,
 				3882BF311B47E94900C188B2 /* LaunchScreen.xib */,
@@ -152,8 +157,8 @@
 		3882BF481B47EC7800C188B2 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				3882BF4D1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld */,
 				3882BF501B47ED6500C188B2 /* NSManagedObjects */,
+				3882BF4D1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld */,
 				3882BF651B47F3A200C188B2 /* CoreDataManager.h */,
 				3882BF661B47F3A200C188B2 /* CoreDataManager.m */,
 				3882BF681B47F4EF00C188B2 /* CoreDataStorage.h */,
@@ -367,6 +372,7 @@
 				3882BF671B47F3A200C188B2 /* CoreDataManager.m in Sources */,
 				3882BF5B1B47F2DE00C188B2 /* MapViewController.m in Sources */,
 				3882BF641B47F34D00C188B2 /* BookmarkDetailViewController.m in Sources */,
+				3882BF6D1B47F8D100C188B2 /* Constants.m in Sources */,
 				3882BF6A1B47F4EF00C188B2 /* CoreDataStorage.m in Sources */,
 				3882BF5E1B47F30500C188B2 /* BookmarksTableViewController.m in Sources */,
 				3882BF4F1B47ED3500C188B2 /* MapBookmarks.xcdatamodeld in Sources */,
@@ -498,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = mapbookmarks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -509,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = mapbookmarks/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

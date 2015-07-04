@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @class Bookmark;
 
 @interface CoreDataStorage : NSObject
 
 + (CoreDataStorage*)sharedStorage;
+
+- (void)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location;
+
+- (NSArray *)getAllBookmarks;
 
 @end

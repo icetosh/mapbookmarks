@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
 
+@interface Bookmark : NSManagedObject <MKAnnotation>
 
-@interface Bookmark : NSManagedObject
-
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) id location;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) CLLocation *location;
 
 @end

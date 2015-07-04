@@ -8,6 +8,7 @@
 
 #import "CoreDataStorage.h"
 #import "CoreDataManager.h"
+#import "Bookmark.h"
 
 @interface CoreDataStorage ()
 
@@ -44,6 +45,25 @@
     });
     
     return storage;
+}
+
+#pragma mark Bookmark
+
+- (void)createBookmarkNamed:(NSString *)name withLocation:(CLLocationCoordinate2D)location {
+    
+    CLLocation *bookmarkLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+
+    Bookmark *bookmark = (Bookmark *)[[CoreDataManager sharedManager] addNewManagedObjectForName:NSStringFromClass([Bookmark class])];
+    bookmark.name = name;
+    bookmark.location = bookmarkLocation;
+    
+    [self.coreDataManager saveContext];    
+}
+
+- (NSArray *)getAllBookmarks {
+    
+    NSArray *bookmarks = [self.coreDataManager getEntities:NSStringFromClass([Bookmark class])];
+    return bookmarks;
 }
 
 @end

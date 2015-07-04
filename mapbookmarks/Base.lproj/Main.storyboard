@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nOK-pc-rZL">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -15,11 +16,63 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOI-ea-Ie6">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="9tr-cZ-ZOW"/>
+                                    <outletCollection property="gestureRecognizers" destination="Gag-XE-zap" appends="YES" id="IJn-x5-XcT"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="zOI-ea-Ie6" secondAttribute="bottom" id="chy-bR-ctO"/>
+                            <constraint firstItem="zOI-ea-Ie6" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="dVz-JF-KVH"/>
+                            <constraint firstAttribute="trailing" secondItem="zOI-ea-Ie6" secondAttribute="trailing" id="h2H-Ts-ckf"/>
+                            <constraint firstItem="zOI-ea-Ie6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="kWZ-Fs-CDO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="zOI-ea-Ie6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="dVz-JF-KVH"/>
+                                <exclude reference="h2H-Ts-ckf"/>
+                                <exclude reference="kWZ-Fs-CDO"/>
+                                <exclude reference="chy-bR-ctO"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="zOI-ea-Ie6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="dVz-JF-KVH"/>
+                                <include reference="h2H-Ts-ckf"/>
+                                <include reference="kWZ-Fs-CDO"/>
+                                <include reference="chy-bR-ctO"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="65b-d8-Llp"/>
+                    <navigationItem key="navigationItem" id="65b-d8-Llp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="31u-wW-cys">
+                            <connections>
+                                <segue destination="ycq-hA-sXy" kind="push" identifier="SeguEToBookmarksTableViewController" id="VHZ-f4-e6l"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="zOI-ea-Ie6" id="BWV-gO-rwS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Gag-XE-zap">
+                    <connections>
+                        <action selector="longTap:" destination="vXZ-lx-hvc" id="BZe-zd-Bpm"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1222.5" y="351"/>
         </scene>
@@ -31,7 +84,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="COA-l2-Pvp">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookmarkCell" id="COA-l2-Pvp">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="COA-l2-Pvp" id="Y36-Sh-7jA">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -43,6 +96,13 @@
                             <outlet property="delegate" destination="ycq-hA-sXy" id="Piz-qg-ukx"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="wcS-IT-RG2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="P1t-78-Ijm">
+                            <connections>
+                                <action selector="barButtonEditAction:" destination="ycq-hA-sXy" id="lRW-2M-5v2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9c-8c-fbl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

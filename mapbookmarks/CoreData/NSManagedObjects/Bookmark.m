@@ -14,4 +14,14 @@
 @dynamic name;
 @dynamic location;
 
+- (CLLocationCoordinate2D)coordinate
+{
+    return self.location.coordinate;
+}
+
+- (NSString *)title
+{
+    return self.name;
+}
+
 @end
