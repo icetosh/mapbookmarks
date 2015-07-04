@@ -7,7 +7,6 @@
 //
 
 #import "MapViewController.h"
-#import "Constants.h"
 #import "CoreDataManager.h"
 #import "CoreDataStorage.h"
 #import "Bookmark.h"
@@ -123,6 +122,7 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     if([view.annotation isKindOfClass:[Bookmark class]]) {
         self.selectedBookmark = view.annotation;
+        [mapView deselectAnnotation:view.annotation animated:YES];
         [self performSegueWithIdentifier:@"segueToBookmarkDetailViewController" sender:self];
     }
 }

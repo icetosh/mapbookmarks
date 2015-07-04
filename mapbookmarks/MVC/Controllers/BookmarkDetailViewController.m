@@ -9,41 +9,71 @@
 #import "BookmarkDetailViewController.h"
 #import "CoreDataManager.h"
 #import "Bookmark.h"
+#import "FoursquareNearbyPlacesRequest.h"
+#import <SAMHUDView/SAMHUDView.h>
+
+NSString *const kName = @"name";
 
 @interface BookmarkDetailViewController () <UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *buttonLoadNearbyPlaces;
+@property (strong, nonatomic) NSArray *placesArray;
 
 @end
 
 @implementation BookmarkDetailViewController
+
+#pragma mark - Initialization
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     if ([self.bookmark.name isEqualToString:@"Unnamed"]) {
         self.buttonLoadNearbyPlaces.hidden = YES;
-    } else {
-        self.tableView.hidden = YES;
+        [self getNearbyPlaces];
     }
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Request
+
+- (void)getNearbyPlaces {
+    SAMHUDView *hudView = [[SAMHUDView alloc] initWithTitle:@"Getting nearby places..."];
+    
+    __weak typeof(self)weakSelf = self;
+
+    [hudView show];
+    
+    [FoursquareNearbyPlacesRequest getNearbyPlacesForBookmark:self.bookmark success:^(NSArray *venues) {
+        self.placesArray = venues;
+        weakSelf.tableView.hidden = NO;
+        [weakSelf.tableView reloadData];
+        [hudView dismiss];
+        self.buttonLoadNearbyPlaces.hidden = YES;
+    } failure:^(NSError *error) {
+        [hudView dismiss];
+    }];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.placesArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlaceCell" forIndexPath:indexPath];
+    cell.textLabel.text = self.placesArray[indexPath.row][kName];
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.bookmark.name = self.placesArray[indexPath.row][kName];
+    [[CoreDataManager sharedManager] saveContext];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Actions
@@ -54,7 +84,7 @@
 }
 
 - (IBAction)buttonLoadNearbyPlacesAction:(UIButton *)sender {
-    
+    [self getNearbyPlaces];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -70,15 +100,5 @@
             break;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
