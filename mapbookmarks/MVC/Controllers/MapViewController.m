@@ -187,6 +187,13 @@
 
 - (void)popoverTableViewController:(PopoverTableViewController *)popover didSelectBookmark:(Bookmark *)bookmark {
     [self.bookmarksPopover dismissPopoverAnimated:YES];
+    
+    if (!self.locationManager.location) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Could not find user location :(" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay :(", nil];
+        [alertView show];
+        return;
+    }
+    
     [self getRouteToBookmark:bookmark];
 }
 
